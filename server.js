@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = express.Router();
-var jf = require("johnny-five");//libreria jonny five
-var circuito = new jf.Board({port:"COM3"});//libreria jonny five
+var jf = require("johnny-five");
+var circuito = new jf.Board({port:"COM3"});
 circuito.on("ready", inicioard);
 global.gauto;
 //---------------------------------------------------------------------
@@ -25,11 +25,13 @@ app.get('/led-on', (req, res) => {
 app.get('/auto', (req, res) => {
   gauto = 1;
   auto();
+  console.log("Auto ON");
   return res.send('AUTO ON');
 });
 app.get('/noauto', (req, res) => {
   gauto = 0;
   auto();
+  console.log("Auto OFF");
   return res.send('AUTO OFF');
 });
 app.use('/', router);
@@ -40,7 +42,7 @@ function inicioard(){
   celda = new jf.Sensor(configuracion);
   led1 = new jf.Led(13);
   led1.on();
-  console.log("terminado")
+  console.log("Working")
 }
 //-------------------------------------------------------------------------
 
@@ -55,7 +57,6 @@ function auto(){
   if (gauto == 1)
   {
     var luz = celda.value;
-    console.log('Automatico ON ' + gauto);
     console.log("Luz: "+ celda.value);
     if (luz > 500){
       led1.off();
@@ -63,9 +64,6 @@ function auto(){
       led1.on();
     }
     setTimeout(auto,1000);
-  }
-  else{
-    console.log('Automatico OFF ' + gauto);
   }
 }
 //------------------------------------------------------------------------
