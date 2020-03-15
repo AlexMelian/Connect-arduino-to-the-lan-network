@@ -1,3 +1,3 @@
-# My-first-IOT-proyect-with-arduino
+# Connect arduino to the lan red
 
 I used johnny five, express in nodejs...
