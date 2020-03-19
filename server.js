@@ -4,8 +4,9 @@ const path = require('path');
 const router = express.Router();
 var jf = require("johnny-five");
 var circuito = new jf.Board({port:"COM3"});
+//---------------------------------------------------------------------------
 circuito.on("ready", inicioard);
-global.gauto;
+global.gauto;//Compare auto
 //---------------------------------------------------------------------
 router.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
@@ -38,8 +39,10 @@ app.use('/', router);
 app.listen(process.env.port || 3000);
 //-----------------------------------------------------------------------
 function inicioard(){
-  var configuracion = {pin:"A0", freq: 50};
-  celda = new jf.Sensor(configuracion);
+  var configuracion1 = {pin:"A0", freq: 50};//
+  var configuracion2 = {pin:"A1", freq: 50};//
+  celda1 = new jf.Sensor(configuracion1);
+  celda2 = new jf.Sensor(configuracion2);
   led1 = new jf.Led(13);
   led1.on();
   console.log("Working")
@@ -56,12 +59,13 @@ function apagarf1(){
 function auto(){
   if (gauto == 1)
   {
-    var luz = celda.value;
-    console.log("Luz: "+ celda.value);
-    if (luz > 500){
-      led1.off();
-    }else{
+    var luz1 = celda1.value;
+    var luz2 = celda2.value;
+    console.log("Luz: "+ celda1.value + " " + celda2.value);
+    if (luz1 < 500 && luz2 < 500){
       led1.on();
+    }else{
+      led1.off();
     }
     setTimeout(auto,1000);
   }
