@@ -1,5 +1,19 @@
 # Connect arduino to the lan red
 
-# Important, use fedora in Arduino
+All in windows...
 
-I used johnny five, express in nodejs...
+Express
+https://www.npmjs.com/package/express
+
+Nodejs
+https://nodejs.org/en/
+
+Johnny five
+http://johnny-five.io/
+
+
+StandardFirmata used in arduino...
+
+Install express and johnny five in the same folder of server.js.
+
+To execute the server paste in cmd  "node server.js", in the same folder...
